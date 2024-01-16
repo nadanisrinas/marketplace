@@ -8,11 +8,11 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const { provider,ethereum, contract } = useWeb3();
-  console.log('contract1111', contract)
+  // console.log('contract1111', contract)
   const getAccounts = async () => {
     try {
       const listAccount = await provider?.listAccounts()
-        console.log("p", listAccount)
+        // console.log("p", listAccount)
     } catch (error) {
       alert("ERROR " + error)
     }
@@ -23,8 +23,8 @@ export default function Home() {
     getAccounts()
   }
   const getNftInfo = async () => {
-    console.log(await contract!.name());
-    console.log(await contract!.symbol());
+    // console.log(await contract!.name());
+    // console.log(await contract!.symbol());
   }
 
   if (contract) {

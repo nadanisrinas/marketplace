@@ -6,18 +6,15 @@ import { SWRResponse } from "swr";
 export type Web3Dependencies = {
     provider: providers.Web3Provider;
     contract: Contract;
-    ethereum: MetaMaskInpageProvider
+    ethereum: MetaMaskInpageProvider,
+    isLoading: boolean,
 }
 
-export type CryptoSWRResponse<D = any> = SWRResponse<D>;
-export type CryptoHandlerHook<D = any, P = any> = (params: P) => CryptoSWRResponse<D>
-export type CryptoHookFactory<D = any, P = any> = {
-    (deps: Partial<Web3Dependencies>): CryptoHandlerHook<D, P>
+export type CryptoSWRResponse<D = any, R = any> = SWRResponse<D> & R ;
+export type CryptoHandlerHook<D = any, R = any, P = any> = (params?: P) => CryptoSWRResponse<D,R>
+export type CryptoHookFactory<D = any, R = any,P = any> = {
+    (deps: Partial<Web3Dependencies>): CryptoHandlerHook<D, R, P>
 }
-
-export type AccountHookFactory = CryptoHookFactory<string, string>
-
-export type UseAccountHook = ReturnType<AccountHookFactory>
 
 //   export type CryptoHookFactory<D= any, P= any> = {
 //     (deps: Partial<Web3Dependencies>): (params: P) => SWRResponse<D>
