@@ -8,12 +8,15 @@ const NETWORKS: {[k:string]: string} = {
    4: "Rinkeby Test Network",
    5: "Goerli Test Network",
    42: "Kovan Test Network",
-   56: "Binance Smart Chain",
+   59140: "Linea Goerli test network",
    1337: "Ganache",
 }
-
+const targetId = process.env.NEXT_PUBLIC_TARGET_CHAIN_ID as string;
+const targetNetwork = NETWORKS[targetId];
 type UseNetworkResponse = {
    isLoading: boolean,
+   isSupported: boolean;
+   targetNetwork: string;
  }
 
 export type NetworkHookFactory = CryptoHookFactory<string, UseNetworkResponse>
@@ -36,8 +39,11 @@ export const hookFactory : NetworkHookFactory = (deps) => () => {
    return {
       ...swr,
       data,
-      isLoading: isLoading || isValidating,
+      isLoading: isLoading  as boolean,
+      // || isValidating,
       isValidating,
+      targetNetwork,
+      isSupported: data === targetNetwork,
       mutate
    };
 }

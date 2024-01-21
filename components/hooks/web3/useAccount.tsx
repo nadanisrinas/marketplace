@@ -25,7 +25,9 @@ export const hookFactory: AccountHookFactory = (deps) => () => {
 
       return account
    }, {
-      revalidateOnFocus: false
+      // https://swr.vercel.app/docs/api
+      revalidateOnFocus: false,
+      shouldRetryOnError: false
    })
 
 
@@ -60,7 +62,8 @@ export const hookFactory: AccountHookFactory = (deps) => () => {
    return {
       ...swr,
       data,
-      isLoading: isLoading || isValidating,
+      isLoading: isLoading as boolean,
+      // || isValidating,
       isInstalled: ethereum?.isMetaMask || false,
       isValidating,
       mutate,
